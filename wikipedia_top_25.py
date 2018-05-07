@@ -1,8 +1,9 @@
 %config InlineBackend.figure_format = 'retina'
 import matplotlib.pyplot as plt
 import pandas as pd
-top25 = pd.read_html('https://en.wikipedia.org/wiki/Wikipedia:Top_25_Report', header=0)[2]
 
+page = 'https://en.wikipedia.org/wiki/Wikipedia:Top_25_Report/April_29_to_May_5,_2018'
+top25 = pd.read_html(page, header=0)[0]
 plt.figure(figsize=(17,10), facecolor='#eeeeee')
 plt.gca(facecolor='#eeeeee', frameon=False)
 plt.grid(alpha=0.3)
@@ -19,13 +20,12 @@ for i in range(25):
              s='{:,}'.format(top25['Views'][::-1][i]), 
              horizontalalignment='left',
              verticalalignment='center', fontsize=11) 
-    
 plt.xlabel('Views', fontsize=20)
-# TODO: make this title dynamic based on the dates
-plt.title('Most Popular Wikipedia Articles of the Week (April 22 to 28, 2018)',
+
+plt.title('Most Popular Wikipedia Articles of the Week ' + page.split('/')[-1].replace('_', ' '),
           fontsize=18)
 plt.tight_layout()
-# TODO: make the file name dynamic based on the dates
-plt.savefig('wikipedia_popular_apr22_28.png',
+
+plt.savefig(page.split('/')[-1] + '.png',
             facecolor='#eeeeee', dpi=200)
 plt.show()
