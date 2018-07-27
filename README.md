@@ -7,4 +7,4 @@ Packages: matplotlib, pandas
 
 Example: 
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Wikipedia_popular_apr22_28.png/1900px-Wikipedia_popular_apr22_28.png) 
+![](Most Popular Wikipedia Articles of the Week (July 15 to 21, 2018).png)
