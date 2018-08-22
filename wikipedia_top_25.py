@@ -16,7 +16,7 @@ url_last_week = 'https://en.wikipedia.org' + uri_last_week
 
 this_week = pd.read_html(page, header=0)[2]
 last_week = pd.read_html(url_last_week, header=0)[2]
-
+last_week['Article'][3] = this_week['Article'][24]
 rank_changes = []
 for rank, article in zip(this_week['Rank'], this_week['Article']):
     if article in last_week['Article'].values:
@@ -26,6 +26,7 @@ for rank, article in zip(this_week['Rank'], this_week['Article']):
 
 top25 = this_week
 top25['rank_changes'] = rank_changes
+top25['Views'] = top25['Views'].str.replace('\[1\]|,', '').astype(int)
 
 arrows = {
     'positive': 9650,
@@ -59,7 +60,7 @@ top25['rank_changes_chr'] = rank_changes_chr
 top25['rank_changes_color'] = rank_changes_color
 
 fig, ax = plt.subplots()
-fig.set_size_inches(17, 10)
+fig.set_size_inches(14, 14)
 fig.set_facecolor('#eeeeee')
 ax.set_facecolor('#eeeeee')
 ax.set_frame_on(False)
@@ -74,8 +75,8 @@ y_text = (
 ax.barh(y=y_text,
          width=top25['Views'][::-1], alpha=0.8)
 ax.xaxis.set_major_formatter(EngFormatter())
-ax.yaxis.set_tick_params(labelsize=13)
-ax.xaxis.set_tick_params(labelsize=13)
+ax.yaxis.set_tick_params(labelsize=15)
+ax.xaxis.set_tick_params(labelsize=15)
 
 for i in range(25):
     ax.text(x=top25['Views'][i],
@@ -83,7 +84,7 @@ for i in range(25):
             s='{:,}'.format(top25['Views'][i]),
             color=top25['rank_changes_color'][i],            
             horizontalalignment='left',
-            verticalalignment='center', fontsize=13)
+            verticalalignment='center', fontsize=15)
 
 
 colors = top25['rank_changes_color'][::-1]
@@ -93,7 +94,8 @@ for ytick, color in zip(ax.get_yticklabels(), colors):
 ax.set_xlabel('Views', fontsize=20)
 ax.set_title(soup_this_week.select('h2 .mw-headline')[0].text +
              '\nTotal Views: ' + format(top25['Views'].sum(), ','),
-          fontsize=18)
+          fontsize=22)
 plt.tight_layout()
-fig.savefig(soup_this_week.select('h2 .mw-headline')[0].text + '.png', facecolor='#eeeeee', dpi=150)
+fig.savefig(soup_this_week.select('h2 .mw-headline')[0].text + '.png', 
+            facecolor='#eeeeee', dpi=150, bbox_inches='tight')
 plt.show()
