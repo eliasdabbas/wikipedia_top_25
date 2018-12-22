@@ -1,9 +1,13 @@
 # Wikipedia's weekly top 25 articles
 
-The code to download the table, and generate a horizontal bar chart. 
+The code to generate the weekly visualization for the report. 
+
+Generate the visualization here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/eliasdabbas/wikipedia_top_25/master?urlpath=lab/tree/plot_data.ipynb)
+
+
 
 Language: Python
-Packages: matplotlib, pandas
+Packages: matplotlib, pandas, requests, bs4
 
 Example: 
 
